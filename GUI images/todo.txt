@@ -1,0 +1,9 @@
+TO DO LIST:
+
++ implement aligning of DLC timestamps in backend (run_decimator) and frontend 
++ test WRITE_READ_JSON FUNCTION in process.py
++ test longitudinal error handling
++ tab styling 
++ cancelling worker and processes on GUI close
++ setting main window minimize buttons to be able to miminize and close rather than using popup minimize buttons while GIF popup running 
++ more general testing
