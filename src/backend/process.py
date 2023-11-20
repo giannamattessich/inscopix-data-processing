@@ -55,10 +55,12 @@ class Process(object):
         self.cnmfe_files_json = self.write_read_json('cnmfe_files_series.json', self.cnmfe_files_series)
         self.cnmfe_events_json = self.write_read_json('cnmfe_eventfiles_series.json', self.cnmfe_eventfiles_series)
         self.cnmfe_spikes_json = self.write_read_json('cnmfe_spike_event_series.json', self.cnmfe_spike_event_series)
+        print(f'{self.total_num_recordings} recordings found !')
 
     # store recordings for each day in a dictionary with day labels as keys and an array of recording files for that day as values
     # using the file directory, find the files that match the raw recording naming scheme using regex year-month-day-hour-minute-second format and '.isxd' ending
     # recording files should be named in the usual raw-recording output scheme or this function will break
+    # to account for files with dropped frames-> if the dates match replace the unprocessed file found with the processed one
     def get_series_recs(self):
         directory = os.listdir(self.data_dir)
         # create dictionary with dates as the keys (ex. 2023-08-04) and array of recordings for that day as values

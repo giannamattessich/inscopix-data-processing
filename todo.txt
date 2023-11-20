@@ -1,6 +1,8 @@
 TO DO LIST:
 
++ recognize processed/dropped frame files -> if file has same beginning and already in dict replace with processed one
 + implement aligning of DLC timestamps in backend (run_decimator) and frontend 
++ fix moving of TIFF files
 + test WRITE_READ_JSON FUNCTION in process.py
 + test longitudinal error handling
 + tab styling 

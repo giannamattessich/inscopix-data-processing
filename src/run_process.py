@@ -1,3 +1,5 @@
+import sys
+sys.path.append(r"C:\Users\Gianna\Documents\Python Scripts\time_series_and_LR_processing")
 from src.backend.Timeseries import Timeseries
 from src.backend.LongitudinalRegistration import LongitudinalRegistration
 
@@ -24,7 +26,7 @@ def run_lr(data_dir, output_folder):
 
 ####** change data_dir variable to the folder path that contains .isxd files**####
 ####** change output_folder_name to the name of the subfolder you want to create within the provided data_dir **####
-data_directory = r"F:\LR_kombucha_20231002_20231003"
+data_directory = r"H:\Miso\20231007_redownload"
 #t = Timeseries(data_directory, 't')
-run_timeseries(data_directory, 'wait')
-run_lr(data_directory, 'wait')
+run_timeseries(data_directory, 'processed')
+#run_lr(data_directory, 'wait')

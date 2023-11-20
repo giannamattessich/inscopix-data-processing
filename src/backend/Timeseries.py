@@ -240,7 +240,7 @@ class Timeseries(Process):
                 if not os.path.exists(self.timeseries_events[day_i]):
                     data = []
                     df = pd.read_csv(self.cnmfe_spike_event_csvs[day_i])
-                    for row in range(0, len(df)):
+                    for row in range(2, len(df)):
                         at_time = df.loc[row]
                         row_len = at_time.size
                         for col in range(1, row_len):

@@ -104,7 +104,6 @@ class TimeseriesTab(QWidget):
                 self.task_manager.set_process_object(self.timeseries_process_object)
                 self.series_recs = self.timeseries_process_object.series_rec_names
                 self.num_days = len(self.series_recs)
-                #self.num_steps = self.timeseries_process_object.total_num_recordings
                 return True
             except ValueError:
                 self.show_error_message('Could not find recording files in the selected input directory. Please check that .isxd files are in year-month-day-hour-minute-second format to continue.')

@@ -1,4 +1,5 @@
 import sys
+sys.path.append(r"C:\Users\Gianna\Documents\Python Scripts\time_series_and_LR_processing")
 from src.frontend.UIMain import MainWindow
 from PyQt5.QtWidgets import QApplication
 
