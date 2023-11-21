@@ -185,9 +185,11 @@ class Process(object):
         
     #provide the file and its name (file_string) to be written and read  
     def write_read_json(self, file_string, file):
-        with open(self.output_dir / file_string, 'w') as write:
-            json.dump(file, write)
-        with open(self.output_dir / file_string, 'r') as read:
+        file_to_write_read = os.path.join(self.output_dir, file_string)
+        if not os.path.exists(file_to_write_read):
+            with open(file_to_write_read, 'w') as write:
+                json.dump(file, write)
+        with open(file_to_write_read, 'r') as read:
             return json.load(read)
 
     # isx api will not process files for a day if one of them exists already, this function is a work-around to skip processing tasks if the

@@ -150,7 +150,8 @@ class Timeseries(Process):
             filelist = os.listdir(source)
             for file in filelist:
                 if file.endswith(type):  # filter by file type
-                    shutil.move(source / file, destination / file)
+                    #shutil.move(os.path.join(source, file), destination)
+                    shutil.move(os.path.join(source, file), os.path.join(destination,file))
                 else:
                     print("Tiff folder already exists, no files were moved\n")
             
@@ -168,8 +169,7 @@ class Timeseries(Process):
                         time_ref='start',
                         output_props_file='')
                     print("Export completed. Tiff files were stored in the tiff subfolder")
-            #self.task_dict['export_to_tiff'] = True
-            self.move_files(self.output_dir, self.output_dir / "cnmfe_tiff")
+            self.move_files(self.output_dir, os.path.join(self.output_dir,"cnmfe_tiff"))
         except Exception as e:
             print(f'Error:{e}')
         

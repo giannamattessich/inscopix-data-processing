@@ -1,9 +1,16 @@
-from PyQt5.QtCore import Qt, QObject, pyqtSignal as Signal, pyqtSlot as Slot, QThreadPool, QRunnable
+from PyQt5.QtCore import Qt, QObject, pyqtSignal as Signal, pyqtSlot as Slot, QThreadPool
 from src.workutils.WorkerThread import Worker
+from src.frontend.GIFPopup import GIFPopup
 
 # # class to handle the execution of tasks in the queue sequentially-> set up finished signal
 class TaskManager(QObject):
+    snorlax_closed = Signal()
+    jiggly_closed = Signal()
+    bulbasaur_closed = Signal()
+    # setup finished signal
     tasks_completed = Signal()
+    gif_closed = Signal()
+    
 
 # initialize queue and index of tasks
     def __init__(self, parent=None):
@@ -16,6 +23,7 @@ class TaskManager(QObject):
 # set the type of data process object to perform on-> either timeseries or longitudinal process
     def set_process_object(self, process_object):
         self.process_object = process_object
+
 
 # add the function name and optional arguments to the queue 
     def add_task(self, method_name, *args, **kwargs):
@@ -36,9 +44,14 @@ class TaskManager(QObject):
             worker = Worker(self.process_object, method_name, *args, **kwargs)
             worker.signals.finished.connect(self.on_task_finished, Qt.QueuedConnection)
             QThreadPool.globalInstance().start(worker)
+            if self.current_task_index == 4:
+                 self.snorlax_closed.emit()
+            elif self.current_task_index == 5:
+                self.jiggly_closed.emit()
         else:
             # All tasks completed
             self.tasks_completed.emit()
+            self.bulbasaur_closed.emit()
             self.task_queue.clear()
 
 # hook up finished signal to slot for task and execute next task in queue
@@ -46,6 +59,11 @@ class TaskManager(QObject):
     def on_task_finished(self):
         self.current_task_index += 1
         self.execute_next_task()
+
+
+
+    
+
 
 
 

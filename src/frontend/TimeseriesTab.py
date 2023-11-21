@@ -238,4 +238,3 @@ class TimeseriesTab(QWidget):
         self.prepro_button.setEnabled(bool)    
 
 
-

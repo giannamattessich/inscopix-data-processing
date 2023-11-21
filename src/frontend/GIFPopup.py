@@ -18,9 +18,8 @@ class GIFPopup(QDialog):
         layout = QVBoxLayout()
         layout.addWidget(self.label)
         self.setLayout(layout)
-        self.setWindowFlags(self.windowFlags() | Qt.WindowMinimizeButtonHint)  # Allow minimize button
-        self.setWindowModality(Qt.ApplicationModal)  # Ensures that the dialog is modal and overlays the parent window
-        self.show()
+        self.setWindowModality(Qt.ApplicationModal)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowMinimizeButtonHint)
 
     def close_dialog(self):
         self.reject()
