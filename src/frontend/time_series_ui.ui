@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1349</width>
-    <height>873</height>
+    <width>1743</width>
+    <height>958</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="font">
    <font>
@@ -30,12 +36,24 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>16777215</height>
+    </size>
+   </property>
    <widget class="QLineEdit" name="outputfoldertext">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>70</y>
-      <width>1001</width>
+      <x>480</x>
+      <y>90</y>
+      <width>1211</width>
       <height>31</height>
      </rect>
     </property>
@@ -151,9 +169,9 @@
    <widget class="QPushButton" name="inputdirbutton">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>30</y>
-      <width>201</width>
+      <x>150</x>
+      <y>50</y>
+      <width>211</width>
       <height>31</height>
      </rect>
     </property>
@@ -261,14 +279,14 @@
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Select Input Directory</string>
+     <string>select input directory</string>
     </property>
    </widget>
    <widget class="QLabel" name="outputfolderlabel">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>60</y>
+      <x>160</x>
+      <y>80</y>
       <width>191</width>
       <height>51</height>
      </rect>
@@ -276,29 +294,29 @@
     <property name="font">
      <font>
       <family>Cascadia Code</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
       <italic>false</italic>
-      <bold>true</bold>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>  Output Folder Name:</string>
+     <string>  output folder name:</string>
     </property>
    </widget>
    <widget class="QLabel" name="preprolabel">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>250</y>
+      <x>150</x>
+      <y>360</y>
       <width>331</width>
-      <height>51</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Cascadia Code</family>
-      <pointsize>10</pointsize>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>11</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -310,9 +328,11 @@
      <enum>QFrame::Raised</enum>
     </property>
     <property name="text">
-     <string>Preprocess
-Apply Bandpass
-Apply Motion Correction</string>
+     <string>*preprocess
+
+*apply bandpass filter
+
+*apply motion correction</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -321,16 +341,16 @@ Apply Motion Correction</string>
    <widget class="QLabel" name="cnmfelabel">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>310</y>
+      <x>150</x>
+      <y>450</y>
       <width>331</width>
-      <height>31</height>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Cascadia Code</family>
-      <pointsize>10</pointsize>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>11</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -339,23 +359,30 @@ Apply Motion Correction</string>
      <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
-     <string>Apply CNMFe
-Export Cellset</string>
+     <string>*apply CNMFe
+
+*export cellset</string>
     </property>
    </widget>
    <widget class="QLabel" name="exportlabel">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>350</y>
+      <x>150</x>
+      <y>510</y>
       <width>331</width>
-      <height>51</height>
+      <height>91</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="font">
      <font>
-      <family>Cascadia Code</family>
-      <pointsize>10</pointsize>
+      <family>Arial Rounded MT Bold</family>
+      <pointsize>11</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -364,17 +391,19 @@ Export Cellset</string>
      <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
-     <string>Detect Events and Auto Classify
-Deconvolve
-Export Spike Events to CSV</string>
+     <string>*detect events and auto classify
+
+*deconvolve
+
+*export spike events to CSV</string>
     </property>
    </widget>
    <widget class="QLabel" name="tpsamplinglabel">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>590</y>
-      <width>241</width>
+      <x>160</x>
+      <y>660</y>
+      <width>261</width>
       <height>91</height>
      </rect>
     </property>
@@ -382,17 +411,20 @@ Export Spike Events to CSV</string>
      <font>
       <family>Cascadia Code</family>
       <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>Temporal Downsampling Factor:</string>
+     <string>temporal downsampling factor:</string>
     </property>
    </widget>
    <widget class="QLabel" name="spsamplinglabel">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>670</y>
+      <x>160</x>
+      <y>760</y>
       <width>241</width>
       <height>31</height>
      </rect>
@@ -404,15 +436,15 @@ Export Spike Events to CSV</string>
      </font>
     </property>
     <property name="text">
-     <string>Spatial Downsampling Factor:</string>
+     <string>spatial downsampling factor:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="alignDLCbutton">
+   <widget class="QPushButton" name="aligntimestampsbutton">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>670</y>
-      <width>381</width>
+      <x>1230</x>
+      <y>830</y>
+      <width>461</width>
       <height>31</height>
      </rect>
     </property>
@@ -420,17 +452,19 @@ Export Spike Events to CSV</string>
      <font>
       <family>Cascadia Code</family>
       <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>Align DLC Timestamps</string>
+     <string>align timestamps</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="exportfoldernametext">
+   <widget class="QLineEdit" name="timestampexportfoldertext">
     <property name="geometry">
      <rect>
-      <x>1070</x>
-      <y>620</y>
+      <x>1470</x>
+      <y>760</y>
       <width>221</width>
       <height>31</height>
      </rect>
@@ -439,9 +473,9 @@ Export Spike Events to CSV</string>
    <widget class="QLabel" name="exporttimeserieslabel">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>610</y>
-      <width>161</width>
+      <x>1230</x>
+      <y>750</y>
+      <width>241</width>
       <height>51</height>
      </rect>
     </property>
@@ -452,15 +486,15 @@ Export Spike Events to CSV</string>
      </font>
     </property>
     <property name="text">
-     <string>Output Folder Name:</string>
+     <string>timestamp output folder name:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="inputdirtext">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>30</y>
-      <width>1001</width>
+      <x>480</x>
+      <y>50</y>
+      <width>1211</width>
       <height>31</height>
      </rect>
     </property>
@@ -471,8 +505,8 @@ Export Spike Events to CSV</string>
    <widget class="QLabel" name="celldiameterlabel">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>670</y>
+      <x>760</x>
+      <y>690</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -484,14 +518,14 @@ Export Spike Events to CSV</string>
      </font>
     </property>
     <property name="text">
-     <string>Cell Diameter:</string>
+     <string>cell diameter:</string>
     </property>
    </widget>
    <widget class="QLabel" name="processinglabel">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>210</y>
+      <x>290</x>
+      <y>270</y>
       <width>191</width>
       <height>21</height>
      </rect>
@@ -506,14 +540,14 @@ Export Spike Events to CSV</string>
      </font>
     </property>
     <property name="text">
-     <string>Processing steps</string>
+     <string/>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>250</y>
+      <x>600</x>
+      <y>320</y>
       <width>751</width>
       <height>311</height>
      </rect>
@@ -523,8 +557,8 @@ Export Spike Events to CSV</string>
    <widget class="QLabel" name="mousenamelabel">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>110</y>
+      <x>240</x>
+      <y>130</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -532,21 +566,21 @@ Export Spike Events to CSV</string>
     <property name="font">
      <font>
       <family>Cascadia Code</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>Mouse Name:</string>
+     <string>mouse name:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="mousenametext">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>110</y>
-      <width>1001</width>
+      <x>480</x>
+      <y>130</y>
+      <width>1211</width>
       <height>31</height>
      </rect>
     </property>
@@ -662,8 +696,8 @@ Export Spike Events to CSV</string>
    <widget class="QLabel" name="snrlabel">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>600</y>
+      <x>760</x>
+      <y>740</y>
       <width>181</width>
       <height>71</height>
      </rect>
@@ -675,47 +709,169 @@ Export Spike Events to CSV</string>
      </font>
     </property>
     <property name="text">
-     <string>Signal-to-noise ratio:</string>
+     <string>signal-to-noise ratio:</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="snrspinbox">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>620</y>
+      <x>960</x>
+      <y>760</y>
       <width>71</width>
       <height>31</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QDoubleSpinBox" name="celldiameterspin">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>670</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QSpinBox" name="tpdownsamplespin">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>620</y>
+      <x>410</x>
+      <y>690</y>
       <width>71</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QSpinBox" name="spdownsamplespin">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>670</y>
+      <x>410</x>
+      <y>760</y>
       <width>71</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="celldiameterspin">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>690</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dropframesbutton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>320</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cascadia Code</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>remove dropped frames</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="deconvolvelabel">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>740</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cascadia Code</family>
+      <pointsize>9</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>Deconvolution</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="preprocesslabel">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>670</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cascadia Code</family>
+      <pointsize>9</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>Preprocess</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="cnmfelabel_2">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>660</y>
+      <width>47</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cascadia Code</family>
+      <pointsize>9</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>CNMFe</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="longitudinal_process_button">
+    <property name="geometry">
+     <rect>
+      <x>1230</x>
+      <y>690</y>
+      <width>461</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cascadia Code</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>register cells longitudinally</string>
     </property>
    </widget>
   </widget>
@@ -724,7 +880,7 @@ Export Spike Events to CSV</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1349</width>
+     <width>1743</width>
      <height>21</height>
     </rect>
    </property>

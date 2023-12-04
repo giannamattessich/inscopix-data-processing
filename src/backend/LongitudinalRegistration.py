@@ -5,10 +5,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from src.backend.process import Process
 
-
 class LongitudinalRegistration(Process):
-    def __init__(self, data_dir, output_folder_name):
-        super().__init__(data_dir, output_folder_name)
+    def __init__(self, data_dir, output_folder_name, mouse):
+        super().__init__(data_dir, output_folder_name, mouse)
         #make new input/output files for longitudinal registratiohn processing
         """
         A movie list can be used as an optional second input to cnmfe lr output
@@ -20,7 +19,6 @@ class LongitudinalRegistration(Process):
         self.dff_files_lr_output = self.series_suffix('-LR.isxd', dir_series= self.dff_files_lr_input)  
         self.maxdff_files_lr = self.series_label_prefix('-maxdff-LR.isxd')
         self.maxcnmfe_files_lr = self.series_label_prefix('-maxcnmfe-LR.isxd')
-        self.lr_cells_from_day = self.series_label_prefix("-longitudinal_spikes.csv")
 
         self.cnmfe_cellset_lr_series = {}
         self.dff_lr_series = {}
@@ -107,7 +105,6 @@ class LongitudinalRegistration(Process):
             self.maxdff_files_series[key] = self.maxdff_files_lr[day_i]
         self.write_json('maxdff_lr.json', self.maxdff_files_series)
 
-
     #get the indeces in the 'local cellset' column that represents the first session of everyday that has the local cellset in order to
     # iterate over cell names
     # rename cells from timeseries to global index for cells in each day 
@@ -151,5 +148,3 @@ class LongitudinalRegistration(Process):
             raise FileNotFoundError('Could not find LR index table or vertically aligned timeseries spikes files')
         for csv_i in range(0, len(day_dfs)):
             day_dfs[csv_i].sort_values(by=[' Cell Name', 'Time (s)']).to_csv(lr_realignment_output[csv_i], index=False)
-
-

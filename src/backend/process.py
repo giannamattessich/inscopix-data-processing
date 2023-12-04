@@ -8,7 +8,7 @@ import numpy as np
 
 # Interface to abstract Timeseries and Longitudinal Registration processing
 class Process(object):
-    def __init__(self, data_dir, output_folder_name):
+    def __init__(self, data_dir, output_folder_name, mouse):
         self.data_dir = Path(data_dir)
         self.output_folder_name = output_folder_name
         #if self.output_folder_name is None:
@@ -17,6 +17,7 @@ class Process(object):
         self.output_dir = self.data_dir / output_folder_name
         # create the output folder if it does not exist
         self.output_dir.mkdir(exist_ok=True)
+        self.mouse_name = mouse
         # store series label, list of recordings, and # of recordings in each series
         if self.get_series_recs() is None:
             raise ValueError(
@@ -29,6 +30,9 @@ class Process(object):
         self.rec_dir_series = self.series_suffix('.isxd', self.recordings_series, output_dir=self.data_dir)
         self.total_num_recordings = np.sum(self.num_rec_per_series)
         self.series_suffix = partial(self.series_suffix, dir_series= self.rec_dir_series)
+        #self.lr_cells_from_day = self.series_label_prefix("-longitudinal_spikes.csv")
+        self.timeseries_events, self.lr_cells_from_day = self.set_mouse_name_for_timeseries()
+        print(self.lr_cells_from_day)
         #create file names for each series
         self.pp_files_series = self.series_suffix('-PP.isxd')
         self.bp_files_series = self.series_suffix('-PP-BP.isxd')
@@ -45,7 +49,8 @@ class Process(object):
         self.cnmfe_csv = self.series_label_prefix('-cnmfe-cellset.csv')
         self.cnmfe_tiff = self.series_label_prefix('-cnmfe-cellset.tiff')
         self.cnmfe_spike_event_csvs = self.series_label_prefix('-cnmfe-spike-events.csv')
-        self.timeseries_events = self.series_label_prefix('-timeseries-spikes.csv')
+       
+        #self.timeseries_events = self.series_label_prefix('-timeseries_spikes.csv')
         #write and read json files that contain series
         self.series_rec_json = self.write_read_json('series_rec_names.json', self.series_rec_names)
         self.rec_dir_json = self.write_read_json('rec_dir_series.json', self.rec_dir_series)
@@ -68,6 +73,7 @@ class Process(object):
         # create dictionary to be used for processing with the days as day labels (ex. day_1, day_2...)
         series_rec_names = {}
         days = set()
+        dates = set()
         # regex pattern to match the .isxd files using year-month-day-hour-minute-hour-second 
         pattern = re.compile(pattern=r'\d{4}-\d{2}-\d{2}')
         num_day = 1
@@ -79,13 +85,16 @@ class Process(object):
                     # case where day has not been added as key to the dates dictionary yet
                     if date not in days:
                         days.add(date)
+                        dates.add(date.replace('-', ''))
                         recs = [file]
                         series_recs_dates[date] = recs
                     # otherwise append to already created value 
                     else:
                         date_rec_list = series_recs_dates[date] + [file]
                         series_recs_dates[date] = date_rec_list
-        #create a new dictionary that has 'day_i' as key label rather than the date itself
+        self.dates = list(dates)
+        # create a new dictionary that has 'day_i' as key label rather than the date itself
+        # find files 
         for day in series_recs_dates.keys():
             label = f'day_{num_day}'
             series_rec_names[label] = series_recs_dates[day]
@@ -93,6 +102,28 @@ class Process(object):
         if len(series_rec_names) == 0:
             return None
         return series_rec_names
+
+# create names of timeseries and LR spike files by mouse name and date
+    def set_mouse_name_for_timeseries(self):
+        timeseries_days= []
+        lr_days = []
+        print(self.dates)
+        if not self.dates:
+            raise AttributeError('No dates found')
+        for date_for_spike in self.dates:
+            prefix_for_day = date_for_spike + '_' + self.mouse_name
+            timeseries_suffix = '_timeseries_spikes_unix.csv'
+            lr_suffix = '_longitudinal_spikes_unix.csv'
+            new_timeseries_output_path = os.path.join(str(self.output_dir), (prefix_for_day + timeseries_suffix))
+            new_lr_output_path = os.path.join(str(self.output_dir), (prefix_for_day + lr_suffix))
+            timeseries_days.append(new_timeseries_output_path)
+            lr_days.append(new_lr_output_path)
+        #self.timeseries_events = timeseries_days
+        #print(self.timeseries_events)
+        return timeseries_days, lr_days
+    
+
+        
     
 
     def split2series(self, Input, length_to_split=None):
@@ -203,8 +234,10 @@ class Process(object):
             raise ValueError('Provided series does not exist')
         if not series[day_i]:
             raise IndexError('Day index provided is not in the series')
+        # get signle file name for every file
         list_of_output_files = [os.path.basename(file) for file in series[day_i]]
         directory = os.listdir(self.output_dir)
+        # get entire path for every file
         in_dir = [file in directory for file in list_of_output_files]
         # case -> all files for that day and series have already been processed
         if all(in_dir):

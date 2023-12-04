@@ -1,7 +1,8 @@
 import os
 import traceback
+import secrets
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QFileDialog, QMessageBox, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QHBoxLayout, QWidget
 from PyQt5.QtCore import Qt, QSize, pyqtSlot as Slot
 from src.workutils.TaskManager import TaskManager
 from src.frontend.ImageButton import ImageButton
@@ -9,12 +10,19 @@ from src.frontend.GIFPopup import GIFPopup
 from PyQt5.QtGui import QPixmap, QFont
 from src.backend.LongitudinalRegistration import LongitudinalRegistration
 
-class LongitudinalTab(QWidget):
+class LongitudinalUI(QMainWindow):
     
     def  __init__(self):
-        super(LongitudinalTab, self).__init__()
+        super(LongitudinalUI, self).__init__()
         loadUi(r"src\frontend\longitudinal_widget.ui", self)
         self.task_manager = TaskManager(self)
+        gui_img_folder_content = os.listdir(r'GUI Images')
+        get_pics = list(filter(lambda x: not x.endswith('.gif'), gui_img_folder_content))
+        # randomize button image and add button to layout
+        self.button_img = secrets.choice(get_pics)
+        self.lr_process_button = ImageButton(QPixmap(fr"GUI images\{self.button_img}"))
+        self.lr_process_button.setMaximumSize(QSize(300, 250))
+        self.horizontalLayout.addWidget(self.process_button)
         self.lr_button = ImageButton(QPixmap(r"GUI images\eevee.webp")) 
         self.rename_button = ImageButton(QPixmap(r"GUI images\meowth.webp")) 
 

@@ -7,8 +7,8 @@ import shutil  # to move files
 #from functools import partial  # modify function default parameters
 
 class Timeseries(Process):
-    def __init__(self, data_dir, output_folder_name):
-        super().__init__(data_dir, output_folder_name)
+    def __init__(self, data_dir, output_folder_name, mouse):
+        super().__init__(data_dir, output_folder_name, mouse)
 
     # perform preprocessing and output --PP.ixsd files
     def preprocess(self, tp_downsampling, sp_downsampling):
@@ -99,7 +99,7 @@ class Timeseries(Process):
 
     # algorithm applies to concatenated movies, every recording has same cellmaps 
     # adjust cell_diameter, min_pnr, and min_corr values as needed 
-    def cnmfe_apply(self):
+    def cnmfe_apply(self, cell_diameter):
         print('Applying CNMFe algorihm to detect cells, please wait...\n')
         try:
             export_path = os.path.join(self.output_dir, 'cnmfe_tmp')
@@ -114,7 +114,7 @@ class Timeseries(Process):
                         input_movie_files=self.mc_files_json[day_i],
                         output_cell_set_files=self.cnmfe_files_json[day_i],
                         output_dir=str(export_path),
-                        cell_diameter=7,
+                        cell_diameter= cell_diameter,
                         min_corr=0.8,
                         min_pnr=10,
                         bg_spatial_subsampling=2,
@@ -134,7 +134,7 @@ class Timeseries(Process):
         except Exception as e:
             print(f'Error:{e}')
 
-    def move_files(source, destination, type='.tiff'):
+    def move_files(self, source, destination, file_ending):
         """
         move files from source to destination, filtered by file type
         Parameters:
@@ -145,22 +145,19 @@ class Timeseries(Process):
             None
         """
         if not os.path.exists(destination):
-            os.mkdir(destination)  # make new subfolder
+            os.makedirs(destination, exist_ok=True)  # make new subfolder
                 # get file list from the source folder
             filelist = os.listdir(source)
             for file in filelist:
-                if file.endswith(type):  # filter by file type
-                    #shutil.move(os.path.join(source, file), destination)
-                    shutil.move(os.path.join(source, file), os.path.join(destination,file))
-                else:
-                    print("Tiff folder already exists, no files were moved\n")
+                if file.endswith(file_ending): 
+                    shutil.move(os.path.join(source, file), destination)
             
 
     # export csv file for all cell traces
     # export multiple cell maps, one tiff image for each cell
     def export_cell_set_to_tiff(self):
         try:
-            for day_i, day_label in enumerate(self.day_labels):   
+            for day_i in len(range(self.day_labels)):   
                 if not os.path.exists(self.cnmfe_csv[day_i]):
                     isx.export_cell_set_to_csv_tiff(
                         input_cell_set_files=self.cnmfe_files_series[day_i],
@@ -169,7 +166,9 @@ class Timeseries(Process):
                         time_ref='start',
                         output_props_file='')
                     print("Export completed. Tiff files were stored in the tiff subfolder")
-            self.move_files(self.output_dir, os.path.join(self.output_dir,"cnmfe_tiff"))
+            tiff_source = self.output_dir
+            tiff_destination = os.path.join(self.output_dir,"cnmfe_tiff")
+            self.move_files(tiff_source, tiff_destination, '.tiff')
         except Exception as e:
             print(f'Error:{e}')
         
@@ -200,7 +199,7 @@ class Timeseries(Process):
             print(f'Error:{e}')
 
     # output spikes 
-    def deconvolve_cells(self):
+    def deconvolve_cells(self, snr_threshold):
         try:
             print('Deconvolving...')
             for day_i, day_label in enumerate(self.day_labels):
@@ -209,7 +208,7 @@ class Timeseries(Process):
                         input_raw_cellset_files= self.cnmfe_files_json[day_i], 
                         output_spike_eventset_files= self.cnmfe_spikes_json[day_i], 
                         accepted_only= False,
-                        spike_snr_threshold= 5.00
+                        spike_snr_threshold= snr_threshold
                     )
                     print(f'Deconvolution completeted for {day_label}')
                 else:
@@ -236,7 +235,7 @@ class Timeseries(Process):
     def vertical_csv_alignment(self):
         try:
             print('Realigning CSV...')
-            for day_i, day_label in enumerate(self.day_labels):
+            for day_i in range(len(self.day_labels)):
                 if not os.path.exists(self.timeseries_events[day_i]):
                     data = []
                     df = pd.read_csv(self.cnmfe_spike_event_csvs[day_i])
